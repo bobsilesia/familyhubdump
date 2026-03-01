@@ -19,3 +19,4 @@ This wiki is synchronized automatically from the repository on each push.
 - Zasady pre‑publish: flake8, compileall, ruff, mypy; wersjonowanie SemVer; Release Notes i asset ZIP dla HACS.
 
 Sync: wykonywany przez workflow „Wiki Sync”.
+Ostatnie wydanie: sprawdź Releases lub odznakę „Last release date”.
