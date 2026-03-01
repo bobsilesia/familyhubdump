@@ -22,12 +22,12 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
           mkdir -p /tmp/wiki
           git clone "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.wiki.git" /tmp/wiki || { echo "Wiki repo missing or insufficient permissions; skipping sync."; exit 0; }
           rsync -av --delete --exclude='.git/' wiki_content/ /tmp/wiki/
           cd /tmp/wiki
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
             echo "No changes to commit."
