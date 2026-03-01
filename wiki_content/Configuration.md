@@ -9,3 +9,7 @@
 2. Open the authorization link to obtain the `code`.
 3. Enter the `code` in the `oauth_code` step in HA.
 4. Tokens will be stored in the integration configuration.
+
+## Notatki
+- OAuth obsługuje `refresh_token`; integracja przechowuje tokeny w konfiguracji HA.
+- Zalecane: OAuth dla pełnego zakresu uprawnień; PAT do szybkiego startu.

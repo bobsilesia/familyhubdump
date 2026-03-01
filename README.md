@@ -7,6 +7,8 @@
 [![Stars](https://img.shields.io/github/stars/bobsilesia/familyhubdump?style=flat-square)](https://github.com/bobsilesia/familyhubdump/stargazers)
 [![Open issues](https://img.shields.io/github/issues/bobsilesia/familyhubdump?style=flat-square)](https://github.com/bobsilesia/familyhubdump/issues)
 [![Last commit](https://img.shields.io/github/last-commit/bobsilesia/familyhubdump?style=flat-square)](https://github.com/bobsilesia/familyhubdump/commits/main)
+[![Open PRs](https://img.shields.io/github/issues-pr/bobsilesia/familyhubdump?style=flat-square)](https://github.com/bobsilesia/familyhubdump/pulls)
+[![Last release date](https://img.shields.io/github/release-date-latest/bobsilesia/familyhubdump?style=flat-square)](https://github.com/bobsilesia/familyhubdump/releases/latest)
 
 HACS integration for Samsung Family Hub (Tizen >3.x) via SmartThings API: sensors, camera snapshot (“View Inside”), and media upload service.
 
