@@ -27,8 +27,8 @@ jobs:
 
       - name: Run auto fixes
         run: |
-          ruff check --fix .
           autoflake --remove-all-unused-imports --in-place --recursive .
+          ruff check --fix .
           black . --line-length 79
           isort . --line-length 79
 

@@ -31,7 +31,9 @@ jobs:
         run: pip install ruff black isort flake8 autoflake
 
       - name: Run ruff fix
-        run: ruff check --fix .
+        run: |
+          autoflake --remove-all-unused-imports --in-place --recursive .
+          ruff check --fix .
       - name: Remove unused imports (autoflake)
         run: autoflake --remove-all-unused-imports --in-place --recursive .
 
