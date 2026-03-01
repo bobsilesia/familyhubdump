@@ -1,7 +1,7 @@
 # Samsung Family Hub — Home Assistant Integration (HACS)
 
 [![License](https://img.shields.io/github/license/bobsilesia/familyhubdump?color=blue)](LICENSE)
-[![Latest release](https://img.shields.io/github/v/release/bobsilesia/familyhubdump?style=flat-square&color=b44e88&label=Latest%20release)](https://github.com/bobsilesia/familyhubdump/releases)
+[![Latest release](https://img.shields.io/github/v/release/bobsilesia/familyhubdump?style=flat-square&color=b44e88&label=Latest%20release)](https://github.com/bobsilesia/familyhubdump/releases/latest)
 [![CI](https://img.shields.io/github/actions/workflow/status/bobsilesia/familyhubdump/ci.yml?branch=main&style=flat-square)](https://github.com/bobsilesia/familyhubdump/actions/workflows/ci.yml)
 [![Downloads](https://img.shields.io/github/downloads/bobsilesia/familyhubdump/total.svg)](https://github.com/bobsilesia/familyhubdump/releases)
 [![Stars](https://img.shields.io/github/stars/bobsilesia/familyhubdump?style=flat-square)](https://github.com/bobsilesia/familyhubdump/stargazers)
