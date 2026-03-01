@@ -9,8 +9,12 @@ import aiohttp
 
 from . import DOMAIN
 
-AUTH_SELECT_SCHEMA = vol.Schema({vol.Required("auth"): vol.In(["pat", "oauth"])})
-PAT_SCHEMA = vol.Schema({vol.Required("token"): str, vol.Required("device_id"): str})
+AUTH_SELECT_SCHEMA = vol.Schema(
+    {vol.Required("auth"): vol.In(["pat", "oauth"])}
+)
+PAT_SCHEMA = vol.Schema(
+    {vol.Required("token"): str, vol.Required("device_id"): str}
+)
 OAUTH_SCHEMA = vol.Schema(
     {
         vol.Required("client_id"): str,
@@ -36,14 +40,22 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             if self._auth == "pat":
                 return await self.async_step_pat()
             return await self.async_step_oauth()
-        return self.async_show_form(step_id="user", data_schema=AUTH_SELECT_SCHEMA, errors=errors)
+        return self.async_show_form(
+            step_id="user",
+            data_schema=AUTH_SELECT_SCHEMA,
+            errors=errors,
+        )
 
     async def async_step_pat(self, user_input: Dict[str, Any] | None = None):
         errors: Dict[str, str] = {}
         if user_input is not None:
             data = {"auth": "pat", **user_input}
             return self.async_create_entry(title="Family Hub", data=data)
-        return self.async_show_form(step_id="pat", data_schema=PAT_SCHEMA, errors=errors)
+        return self.async_show_form(
+            step_id="pat",
+            data_schema=PAT_SCHEMA,
+            errors=errors,
+        )
 
     async def async_step_oauth(self, user_input: Dict[str, Any] | None = None):
         errors: Dict[str, str] = {}
@@ -60,9 +72,16 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 errors=errors,
                 description_placeholders={"auth_url": auth_url},
             )
-        return self.async_show_form(step_id="oauth", data_schema=OAUTH_SCHEMA, errors=errors)
+        return self.async_show_form(
+            step_id="oauth",
+            data_schema=OAUTH_SCHEMA,
+            errors=errors,
+        )
 
-    async def async_step_oauth_code(self, user_input: Dict[str, Any] | None = None):
+    async def async_step_oauth_code(
+        self,
+        user_input: Dict[str, Any] | None = None,
+    ):
         errors: Dict[str, str] = {}
         if user_input is not None:
             code = user_input["code"]
@@ -74,7 +93,10 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 "redirect_uri": self._oauth_data["redirect_url"],
             }
             async with aiohttp.ClientSession() as session:
-                async with session.post(self._oauth_data["token_url"], data=data) as resp:
+                async with session.post(
+                    self._oauth_data["token_url"],
+                    data=data,
+                ) as resp:
                     if resp.status != 200:
                         errors["base"] = "auth_failed"
                     else:
@@ -84,8 +106,15 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                             "access_token": j.get("access_token"),
                             "refresh_token": j.get("refresh_token"),
                         }
-                        return self.async_create_entry(title="Family Hub (OAuth)", data=entry_data)
-        return self.async_show_form(step_id="oauth_code", data_schema=vol.Schema({vol.Required("code"): str}), errors=errors)
+                        return self.async_create_entry(
+                            title="Family Hub (OAuth)",
+                            data=entry_data,
+                        )
+        return self.async_show_form(
+            step_id="oauth_code",
+            data_schema=vol.Schema({vol.Required("code"): str}),
+            errors=errors,
+        )
 
     @callback
     def async_get_options_flow(self, config_entry: config_entries.ConfigEntry):

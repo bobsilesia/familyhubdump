@@ -3,16 +3,19 @@ from __future__ import annotations
 from homeassistant.components.camera import Camera
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
-from homeassistant.helpers.update_coordinator import CoordinatorEntity, DataUpdateCoordinator
-from homeassistant.const import CONF_TOKEN
+from homeassistant.helpers.update_coordinator import (
+    CoordinatorEntity,
+    DataUpdateCoordinator,
+)
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.helpers.typing import ConfigType
-
-from . import DOMAIN
 from .api import SmartThingsClient
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities):
+async def async_setup_entry(
+    hass: HomeAssistant,
+    entry: ConfigEntry,
+    async_add_entities,
+):
     auth = entry.data.get("auth", "pat")
     device_id = entry.data.get("device_id")
     if auth == "oauth":
@@ -25,13 +28,22 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
         )
     else:
         client = SmartThingsClient(entry.data.get("token") or "")
-    coordinator = DataUpdateCoordinator(hass, name="familyhub_camera", update_method=lambda: client.get_device_status(device_id))
+    coordinator = DataUpdateCoordinator(
+        hass,
+        name="familyhub_camera",
+        update_method=lambda: client.get_device_status(device_id),
+    )
     await coordinator.async_config_entry_first_refresh()
     async_add_entities([FamilyHubCamera(coordinator, client, device_id)])
 
 
 class FamilyHubCamera(CoordinatorEntity, Camera):
-    def __init__(self, coordinator: DataUpdateCoordinator, client: SmartThingsClient, device_id: str):
+    def __init__(
+        self,
+        coordinator: DataUpdateCoordinator,
+        client: SmartThingsClient,
+        device_id: str,
+    ):
         super().__init__(coordinator)
         Camera.__init__(self)
         self._client = client

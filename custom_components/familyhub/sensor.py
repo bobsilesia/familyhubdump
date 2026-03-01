@@ -2,13 +2,20 @@ from __future__ import annotations
 
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.update_coordinator import CoordinatorEntity, DataUpdateCoordinator
+from homeassistant.helpers.update_coordinator import (
+    CoordinatorEntity,
+    DataUpdateCoordinator,
+)
 from homeassistant.config_entries import ConfigEntry
 
 from .api import SmartThingsClient
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities):
+async def async_setup_entry(
+    hass: HomeAssistant,
+    entry: ConfigEntry,
+    async_add_entities,
+):
     auth = entry.data.get("auth", "pat")
     device_id = entry.data.get("device_id")
     if auth == "oauth":
@@ -21,9 +28,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
         )
     else:
         client = SmartThingsClient(entry.data.get("token") or "")
+
     async def _update():
         return await client.get_device_status(device_id)
-    coordinator = DataUpdateCoordinator(hass, name="familyhub_sensors", update_method=_update)
+    coordinator = DataUpdateCoordinator(
+        hass,
+        name="familyhub_sensors",
+        update_method=_update,
+    )
     await coordinator.async_config_entry_first_refresh()
     entities = [
         FamilyHubTemperature(coordinator, "cooler"),
@@ -49,7 +61,9 @@ class FamilyHubTemperature(CoordinatorEntity, SensorEntity):
     @property
     def native_value(self):
         try:
-            return self.coordinator.data["components"][self._component]["temperatureMeasurement"]["temperature"]["value"]
+            return self.coordinator.data["components"][self._component][
+                "temperatureMeasurement"
+            ]["temperature"]["value"]
         except Exception:
             return None
 
@@ -63,7 +77,8 @@ class FamilyHubDoor(CoordinatorEntity, SensorEntity):
     @property
     def native_value(self):
         try:
-            v = self.coordinator.data["components"][self._component]["contactSensor"]["contact"]["value"]
+            comp = self.coordinator.data["components"][self._component]
+            v = comp["contactSensor"]["contact"]["value"]
             return "open" if v == "open" else "closed"
         except Exception:
             return None
@@ -81,10 +96,16 @@ class FamilyHubIceMaker(CoordinatorEntity, SensorEntity):
             for cap_name, cap in comp.items():
                 if not isinstance(cap, dict):
                     continue
-                if "ice" in cap_name.lower() or cap_name.lower() in ["refrigeration"]:
+                if (
+                    "ice" in cap_name.lower()
+                    or cap_name.lower() in ["refrigeration"]
+                ):
                     for attr_name, attr in cap.items():
                         if isinstance(attr, dict) and "value" in attr:
-                            if "ice" in attr_name.lower() or cap_name.lower() == "iceMaker".lower():
+                            if (
+                                "ice" in attr_name.lower()
+                                or cap_name.lower() == "icemaker"
+                            ):
                                 return attr["value"]
             return None
         except Exception:
@@ -102,7 +123,13 @@ class FamilyHubFilterStatus(CoordinatorEntity, SensorEntity):
             comp = self.coordinator.data["components"]["main"]
             if "filterStatus" in comp:
                 cap = comp["filterStatus"]
-                for key in ["filterStatus", "filterLife", "filterRemaining", "lifeRemaining", "status"]:
+                for key in [
+                    "filterStatus",
+                    "filterLife",
+                    "filterRemaining",
+                    "lifeRemaining",
+                    "status",
+                ]:
                     v = cap.get(key)
                     if isinstance(v, dict) and "value" in v:
                         return v["value"]
@@ -122,7 +149,12 @@ class FamilyHubRefrigerationMode(CoordinatorEntity, SensorEntity):
             comp = self.coordinator.data["components"]["main"]
             if "refrigeration" in comp:
                 cap = comp["refrigeration"]
-                for key in ["mode", "modes", "refrigerationMode", "supportedModes"]:
+                for key in [
+                    "mode",
+                    "modes",
+                    "refrigerationMode",
+                    "supportedModes",
+                ]:
                     v = cap.get(key)
                     if isinstance(v, dict) and "value" in v:
                         return v["value"]
