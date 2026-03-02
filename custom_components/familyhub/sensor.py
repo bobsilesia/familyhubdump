@@ -1,12 +1,10 @@
 from __future__ import annotations
 
 from homeassistant.components.sensor import SensorEntity
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers.update_coordinator import (
-    CoordinatorEntity,
-    DataUpdateCoordinator,
-)
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.update_coordinator import (CoordinatorEntity,
+                                                      DataUpdateCoordinator)
 
 from .api import SmartThingsClient
 
@@ -31,6 +29,7 @@ async def async_setup_entry(
 
     async def _update():
         return await client.get_device_status(device_id)
+
     coordinator = DataUpdateCoordinator(
         hass,
         name="familyhub_sensors",
@@ -96,10 +95,9 @@ class FamilyHubIceMaker(CoordinatorEntity, SensorEntity):
             for cap_name, cap in comp.items():
                 if not isinstance(cap, dict):
                     continue
-                if (
-                    "ice" in cap_name.lower()
-                    or cap_name.lower() in ["refrigeration"]
-                ):
+                if "ice" in cap_name.lower() or cap_name.lower() in [
+                    "refrigeration"
+                ]:
                     for attr_name, attr in cap.items():
                         if isinstance(attr, dict) and "value" in attr:
                             if (
