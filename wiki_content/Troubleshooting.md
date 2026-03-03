@@ -15,3 +15,13 @@
 - F401 (nieużyty import): automatycznie usuwany (autoflake) w CI/PR.
 - Status CI i ostatnie runy: sprawdź badge w README oraz Actions.
 - Przed publikacją: flake8, compileall, ruff, mypy – wymagane.
+
+## RS232 — zawieszanie przy zbyt dużej liczbie zapytań
+- Objawy: urządzenie przestaje odpowiadać, bufor się zapycha, połączenie wymaga restartu.
+- Przyczyna: zbyt częste zapytania (tight loop, brak limitów) przeciążają interfejs szeregowy.
+- Zalecenia:
+  - Ustaw polling na „normal” (np. co 30 s) zamiast „minimum”/ciągłego odpytywania.
+  - Grupuj odczyty i ogranicz liczbę komend na cykl; unikaj wielokrotnych zapytań do tych samych parametrów.
+  - Włącz mechanizmy rate‑limit i backoff; po błędzie wydłuż interwał.
+  - Dla snapshotów kamery wywołuj on‑demand; unikaj automatycznych wywołań co kilka sekund.
+  - W przypadku braku odpowiedzi, zatrzymaj odpytywanie na kilkanaście sekund i wznowij z normalnym interwałem.

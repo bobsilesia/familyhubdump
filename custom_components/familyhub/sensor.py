@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from homeassistant.components.sensor import SensorEntity
+from datetime import timedelta
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
@@ -35,6 +36,7 @@ async def async_setup_entry(
         hass,
         name="familyhub_sensors",
         update_method=_update,
+        update_interval=timedelta(seconds=30),
     )
     await coordinator.async_config_entry_first_refresh()
     entities = [

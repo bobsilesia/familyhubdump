@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from homeassistant.components.camera import Camera
+from datetime import timedelta
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import (
@@ -32,6 +33,7 @@ async def async_setup_entry(
         hass,
         name="familyhub_camera",
         update_method=lambda: client.get_device_status(device_id),
+        update_interval=timedelta(seconds=30),
     )
     await coordinator.async_config_entry_first_refresh()
     async_add_entities([FamilyHubCamera(coordinator, client, device_id)])
