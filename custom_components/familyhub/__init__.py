@@ -1,7 +1,7 @@
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.typing import ConfigType
-from homeassistant.const import Platform
 
 DOMAIN = "familyhub"
 PLATFORMS = [Platform.SENSOR, Platform.CAMERA]
@@ -24,6 +24,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         auth = data.get("auth", "pat")
         device_id = data.get("device_id")
         from .api import SmartThingsClient
+
         if auth == "oauth":
             client = SmartThingsClient(
                 token=data.get("access_token") or "",
@@ -48,6 +49,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
             content_type,
         )
         await client.close()
+
     hass.services.async_register(DOMAIN, "upload_media", _handle_upload_media)
 
     async def _get_client():
@@ -57,6 +59,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         data = entries[0].data
         device_id = data.get("device_id")
         from .api import SmartThingsClient
+
         if data.get("auth", "pat") == "oauth":
             client = SmartThingsClient(
                 token=data.get("access_token") or "",
@@ -89,6 +92,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
             ],
         )
         await client.close()
+
     hass.services.async_register(DOMAIN, "execute", _handle_execute)
 
     async def _handle_set_ice_maker(call):
@@ -109,6 +113,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
             ],
         )
         await client.close()
+
     hass.services.async_register(
         DOMAIN,
         "set_ice_maker",
@@ -132,6 +137,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
             ],
         )
         await client.close()
+
     hass.services.async_register(DOMAIN, "reset_filter", _handle_reset_filter)
 
     async def _handle_set_power_cool(call):
@@ -152,6 +158,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
             ],
         )
         await client.close()
+
     hass.services.async_register(
         DOMAIN,
         "set_power_cool",
@@ -176,6 +183,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
             ],
         )
         await client.close()
+
     hass.services.async_register(
         DOMAIN,
         "set_power_freeze",
