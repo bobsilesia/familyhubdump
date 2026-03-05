@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from typing import Any, Dict
 
+import aiohttp
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
-import aiohttp
 
 from . import DOMAIN
 
