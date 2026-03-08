@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.8
+- Fix `hassfest` validation: Add missing `options` strings and `services` descriptions to `strings.json` and `translations/en.json`.
+
 ## 1.1.7
 - Fix `hassfest` validation: Add missing `strings.json` and `translations/en.json` for Config Flow.
 

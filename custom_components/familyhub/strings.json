@@ -42,5 +42,85 @@
     "abort": {
       "already_configured": "This device is already configured."
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Family Hub Configuration",
+        "description": "Configure Family Hub options"
+      }
+    }
+  },
+  "services": {
+    "upload_media": {
+      "name": "Upload media to Family Hub",
+      "description": "Uploads an image or video to Family Hub",
+      "fields": {
+        "path": {
+          "name": "File Path",
+          "description": "Local path to the file (e.g. /config/www/image.jpg)"
+        },
+        "content_type": {
+          "name": "Content Type",
+          "description": "MIME type of the file (e.g. image/jpeg)"
+        }
+      }
+    },
+    "execute": {
+      "name": "Execute raw SmartThings command",
+      "description": "Sends a raw command to the Family Hub via SmartThings",
+      "fields": {
+        "component": {
+          "name": "Component",
+          "description": "The component to target (e.g. main)"
+        },
+        "capability": {
+          "name": "Capability",
+          "description": "The capability to execute"
+        },
+        "command": {
+          "name": "Command",
+          "description": "The command to execute"
+        },
+        "arguments": {
+          "name": "Arguments",
+          "description": "List of arguments for the command"
+        }
+      }
+    },
+    "set_ice_maker": {
+      "name": "Set ice maker state",
+      "description": "Turns ice maker on/off",
+      "fields": {
+        "state": {
+          "name": "State",
+          "description": "Target state (on/off)"
+        }
+      }
+    },
+    "reset_filter": {
+      "name": "Reset water filter counter",
+      "description": "Resets the filter life counter on the refrigerator"
+    },
+    "set_power_cool": {
+      "name": "Set Power Cool",
+      "description": "Turns Power Cool mode on/off",
+      "fields": {
+        "state": {
+          "name": "State",
+          "description": "Target state (on/off)"
+        }
+      }
+    },
+    "set_power_freeze": {
+      "name": "Set Power Freeze",
+      "description": "Turns Power Freeze mode on/off",
+      "fields": {
+        "state": {
+          "name": "State",
+          "description": "Target state (on/off)"
+        }
+      }
+    }
   }
 }
