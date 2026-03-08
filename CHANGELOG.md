@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.7
+- Fix `hassfest` validation: Add missing `strings.json` and `translations/en.json` for Config Flow.
+
 ## 1.1.6
 - Fix `hassfest` validation for `upload_media` service (remove invalid `entity_id` field).
 - Ensure `manifest.json` sorting and keys.

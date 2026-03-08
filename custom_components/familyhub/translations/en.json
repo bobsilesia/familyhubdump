@@ -1,0 +1,46 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Select Authentication Method",
+        "description": "Choose how to authenticate with SmartThings",
+        "data": {
+          "auth": "Authentication Method"
+        }
+      },
+      "pat": {
+        "title": "Personal Access Token",
+        "description": "Enter your SmartThings Personal Access Token (PAT) and Device ID",
+        "data": {
+          "token": "Personal Access Token",
+          "device_id": "Device ID"
+        }
+      },
+      "oauth": {
+        "title": "OAuth Configuration",
+        "description": "Enter your SmartThings OAuth credentials",
+        "data": {
+          "client_id": "Client ID",
+          "client_secret": "Client Secret",
+          "device_id": "Device ID",
+          "authorization_url": "Authorization URL",
+          "token_url": "Token URL",
+          "redirect_url": "Redirect URL"
+        }
+      },
+      "oauth_code": {
+        "title": "Enter Authorization Code",
+        "description": "Please visit {auth_url} to authorize the app, then copy the code from the redirect URL and paste it below.",
+        "data": {
+          "code": "Authorization Code"
+        }
+      }
+    },
+    "error": {
+      "auth_failed": "Authentication failed. Please check your credentials."
+    },
+    "abort": {
+      "already_configured": "This device is already configured."
+    }
+  }
+}
