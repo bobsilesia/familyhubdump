@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.9
+- Fix `hassfest` validation: Remove core dependency `aiohttp` from requirements.
+- Fix `hassfest` validation: Remove invalid `target: sensor` from services (services are global per config entry).
+
 ## 1.1.8
 - Fix `hassfest` validation: Add missing `options` strings and `services` descriptions to `strings.json` and `translations/en.json`.
 
