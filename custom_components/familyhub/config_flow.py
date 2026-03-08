@@ -9,12 +9,8 @@ from homeassistant.core import callback
 
 from . import DOMAIN
 
-AUTH_SELECT_SCHEMA = vol.Schema(
-    {vol.Required("auth"): vol.In(["pat", "oauth"])}
-)
-PAT_SCHEMA = vol.Schema(
-    {vol.Required("token"): str, vol.Required("device_id"): str}
-)
+AUTH_SELECT_SCHEMA = vol.Schema({vol.Required("auth"): vol.In(["pat", "oauth"])})
+PAT_SCHEMA = vol.Schema({vol.Required("token"): str, vol.Required("device_id"): str})
 OAUTH_SCHEMA = vol.Schema(
     {
         vol.Required("client_id"): str,

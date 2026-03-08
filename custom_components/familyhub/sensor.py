@@ -100,9 +100,7 @@ class FamilyHubIceMaker(CoordinatorEntity, SensorEntity):
             for cap_name, cap in comp.items():
                 if not isinstance(cap, dict):
                     continue
-                if "ice" in cap_name.lower() or cap_name.lower() in [
-                    "refrigeration"
-                ]:
+                if "ice" in cap_name.lower() or cap_name.lower() in ["refrigeration"]:
                     for attr_name, attr in cap.items():
                         if isinstance(attr, dict) and "value" in attr:
                             if (
