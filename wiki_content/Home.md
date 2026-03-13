@@ -1,4 +1,4 @@
-# Samsung Family Hub — Wiki
+Samsung Family Hub  Wiki
 
 Welcome to the wiki for the Samsung Family Hub Home Assistant integration (HACS).
 
@@ -12,23 +12,23 @@ Repository: https://github.com/bobsilesia/familyhubdump
 
 This wiki is synchronized automatically from the repository on each push.
 
-## Automatyzacja CI i publikacji
-- Nightly CI: codziennie o 03:00 UTC (lint, składnia, auto‑naprawy).
-- Auto Fix: na gałęziach/PR (poza main) – formatowanie i automatyczne commity.
-- Auto Branch Fix: cyklicznie/ręcznie – PR z poprawkami (ruff/black/isort/autoflake).
-- Zasady pre‑publish: flake8, compileall, ruff, mypy; wersjonowanie SemVer; Release Notes i asset ZIP dla HACS.
+## CI and release automation
+- Nightly CI: daily at 03:00 UTC (lint, syntax, auto‑fixes).
+- Auto Fix: on branches/PR (except main) – formatting and automatic commits.
+- Auto Branch Fix: scheduled/triggered – PR with fixes (ruff/black/isort/autoflake).
+- Pre‑publish rules: flake8, compileall, ruff, mypy; SemVer versioning; Release Notes and ZIP asset for HACS.
 
-Sync: wykonywany przez workflow „Wiki Sync”.
-Ostatnie wydanie: sprawdź Releases lub odznakę „Last release date”.
+Sync: performed by the "Wiki Sync" workflow.
+Latest release: check Releases or the "Last release date" badge.
 
 ## Release & CI policy
-- Pre‑publish (wymagane):
+- Pre‑publish (required):
   - `flake8 custom_components/familyhub`
   - `python3 -m compileall -q custom_components/familyhub`
   - `ruff check .`
   - `mypy custom_components/familyhub`
-- Automatyka:
-  - CI: każdy push/PR (fix: autoflake → ruff → black → isort; lint: flake8, składnia: compileall)
-  - Auto Fix: na gałęziach/PR poza main (auto‑commit zmian formatowania)
-  - Auto Branch Fix: harmonogram 02:00 UTC + ręczny dispatch (otwiera PR z poprawkami)
-  - Wiki Sync: synchronizacja wiki_content do repo wiki na push i ręcznie (workflow_dispatch)
+- Automation:
+  - CI: every push/PR (fix: autoflake → ruff → black → isort; lint: flake8, syntax: compileall)
+  - Auto Fix: on branches/PR except main (auto‑commit formatting changes)
+  - Auto Branch Fix: schedule 02:00 UTC + manual dispatch (opens PR with fixes)
+  - Wiki Sync: sync wiki_content to the wiki repo on push and manually (workflow_dispatch)
